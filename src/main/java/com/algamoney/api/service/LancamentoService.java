@@ -1,5 +1,6 @@
 package com.algamoney.api.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,10 @@ public class LancamentoService {
 	@Autowired
 	private LancamentoRepository lancamentoRepository;
 
+	public List<Lancamento> Listar(){
+		return this.lancamentoRepository.findAll();
+	}
+	
 	public Lancamento bucarPorCodigo(Long codigo) {
 		Optional<Lancamento> lancamento = this.lancamentoRepository.findById(codigo);
 		if (lancamento.isPresent()) {
@@ -23,6 +28,10 @@ public class LancamentoService {
 			throw new EmptyResultDataAccessException(1);
 		}
 		
+	}
+	
+	public Lancamento criar(Lancamento lancamento) {
+		return this.lancamentoRepository.save(lancamento);
 	}
 
 }
