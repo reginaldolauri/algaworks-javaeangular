@@ -24,8 +24,7 @@ public class PessoaService {
 	public Pessoa buscarPorCodigo(Long codigo) {
 		Optional<Pessoa> pessoa = this.pessoaRepository.findById(codigo);
 		if (pessoa.isPresent()) {
-			Pessoa pessoaObtida = pessoa.get();
-			return pessoaObtida;
+			return pessoa.get();
 		} else {
 			throw new EmptyResultDataAccessException(1);
 		}
