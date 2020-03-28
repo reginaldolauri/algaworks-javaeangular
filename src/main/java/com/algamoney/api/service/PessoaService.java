@@ -15,6 +15,12 @@ public class PessoaService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	
+	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
+		Pessoa pessoaSalva = this.buscarPorCodigo(codigo);
+		pessoaSalva.setAtivo(ativo);
+		this.pessoaRepository.save(pessoaSalva);
+	}
+
 	public Pessoa buscarPorCodigo(Long codigo) {
 		Optional<Pessoa> pessoa = this.pessoaRepository.findById(codigo);
 		if (pessoa.isPresent()) {
@@ -24,5 +30,6 @@ public class PessoaService {
 			throw new EmptyResultDataAccessException(1);
 		}
 	}
+
 	
 }
