@@ -23,7 +23,7 @@ public class LancamentoService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	
-	public List<Lancamento> Listar(LancamentoFilter lancamentoFilter){
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){
 		return this.lancamentoRepository.filtrar(lancamentoFilter);
 	}
 	
@@ -43,6 +43,10 @@ public class LancamentoService {
 			throw new PessoaInexistenteOuInativaException();
 		}
 		return this.lancamentoRepository.save(lancamento);
+	}
+
+	public void remover(Long codigo) {
+		this.lancamentoRepository.deleteById(codigo);
 	}
 
 	
