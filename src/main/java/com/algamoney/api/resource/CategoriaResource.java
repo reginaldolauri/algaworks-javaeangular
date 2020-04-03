@@ -29,7 +29,7 @@ public class CategoriaResource {
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
-	
+
 	@GetMapping
 	public List<Categoria> listar(){
 		return this.categoriaRepository.findAll();
