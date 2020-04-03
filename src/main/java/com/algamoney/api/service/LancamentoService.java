@@ -1,7 +1,5 @@
 package com.algamoney.api.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -29,9 +27,9 @@ public class LancamentoService {
 	}
 	
 	public Lancamento bucarPorCodigo(Long codigo) {
-		Optional<Lancamento> lancamento = this.lancamentoRepository.findById(codigo);
-		if (lancamento.isPresent()) {
-			return lancamento.get();
+		Lancamento lancamento = this.lancamentoRepository.findOne(codigo);
+		if (null != lancamento) {
+			return lancamento;
 		} else {
 			throw new EmptyResultDataAccessException(1);
 		}
@@ -39,7 +37,7 @@ public class LancamentoService {
 	}
 	
 	public Lancamento criar(Lancamento lancamento) {
-		Pessoa pessoa = this.pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();
+		Pessoa pessoa = this.pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
 		if (null == pessoa || pessoa.isInativo()) {
 			throw new PessoaInexistenteOuInativaException();
 		}
@@ -47,7 +45,7 @@ public class LancamentoService {
 	}
 
 	public void remover(Long codigo) {
-		this.lancamentoRepository.deleteById(codigo);
+		this.lancamentoRepository.delete(codigo);
 	}
 
 	

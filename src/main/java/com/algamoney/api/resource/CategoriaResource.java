@@ -1,7 +1,6 @@
 package com.algamoney.api.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -44,7 +43,8 @@ public class CategoriaResource {
 	}
 	
 	@GetMapping("/{codigo}")
-	public Optional<Categoria> buscaPeloCodigo(@PathVariable Long codigo) {
-		return this.categoriaRepository.findById(codigo);
+	public ResponseEntity<Categoria> buscaPeloCodigo(@PathVariable Long codigo) {
+		Categoria categoria = this.categoriaRepository.findOne(codigo);
+		return null != categoria ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
 	}
 }

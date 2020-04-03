@@ -59,7 +59,7 @@ public class PessoaResource {
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		this.pessoaRepository.deleteById(codigo);
+		this.pessoaRepository.delete(codigo);
 	}
 	
 	@PutMapping("/{codigo}")
