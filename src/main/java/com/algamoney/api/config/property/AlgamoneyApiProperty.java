@@ -2,7 +2,7 @@ package com.algamoney.api.config.property;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("algamoney")
+@ConfigurationProperties("algamoney-regis")
 public class AlgamoneyApiProperty {
 
 	private String originPermitida = "http://localhost:8000";
