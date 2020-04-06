@@ -1,5 +1,6 @@
 package com.algamoney.api.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -51,6 +52,36 @@ public class LancamentoService {
 
 	public void remover(Long codigo) {
 		this.lancamentoRepository.delete(codigo);
+	}
+
+	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
+		Lancamento lancamentoSalvo = this.buscarLancamentoExistente(codigo);
+		if (!lancamento.getPessoa().equals(lancamentoSalvo.getPessoa())) {
+			this.validarPessoa(lancamento);
+		}
+		
+		BeanUtils.copyProperties(lancamento, lancamentoSalvo, "codigo");
+		
+		return this.lancamentoRepository.save(lancamentoSalvo);
+	}
+	
+	private void validarPessoa(Lancamento lancamento) {
+		Pessoa pessoa = null;
+		if (null  != lancamento.getPessoa().getCodigo()) {
+			pessoa = this.pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
+		}
+		
+		if (null == pessoa || pessoa.isInativo()) {
+			throw new PessoaInexistenteOuInativaException();
+		}
+	}
+	
+	private Lancamento buscarLancamentoExistente(Long codigo) {
+		Lancamento lancamentoSalvo = this.lancamentoRepository.findOne(codigo);
+		if (null  == lancamentoSalvo) {
+			throw new IllegalArgumentException();
+		}
+		return lancamentoSalvo;
 	}
 
 	
