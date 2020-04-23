@@ -5,7 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("algamoney")
 public class AlgamoneyApiProperty {
 
-	private String originPermitida = "http://localhost:8000";
+//	private String originPermitida = "http://localhost:8000"; Local
+	private String originPermitida = "https://algamoney-regis-angular.herokuapp.com"; //Prod
 	
 	private final Seguranca seguranca = new Seguranca();
 	
